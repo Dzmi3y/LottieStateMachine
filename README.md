@@ -12,10 +12,6 @@ dependencies:
     git:
       url: https://github.com/Dzmi3y/LottieStateMachine.git
       ref: main
-
-flutter:
-  assets:
-    - assets/robot.json # Register your animation file here!
 ```
 Run Command:
 Open the terminal in your project folder and run:
