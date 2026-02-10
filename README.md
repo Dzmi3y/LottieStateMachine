@@ -10,22 +10,23 @@ Add this to your `pubspec.yaml`:
 dependencies:
   lottie_state_machine:
     git:
-      url: https://github.com # Replace with your full link
+      url: https://github.com/Dzmi3y/LottieStateMachine.git
       ref: main
 
 flutter:
   assets:
     - assets/robot.json # Register your animation file here!
-
+```
 Run Command:
 Open the terminal in your project folder and run:
 flutter pub get
 Quick Start
 1. Define States
+
 ```dart
 
 enum CharacterState { idle, jump }
-
+```
 2. Configure Data
 ```dart
 
@@ -46,7 +47,7 @@ final animationData = LottieAnimationData<CharacterState>(
     ),
   },
 );
-
+```
 3. Implementation
 Import in Code:
 import 'package:lottie_state_machine/lottie_state_machine.dart';
@@ -58,7 +59,7 @@ late final _stateMachine = LottieAnimationStateMachine<CharacterState>(
   currentStateId: CharacterState.idle,
   controller: AnimationController(vsync: this),
 );
-
+```
 Build & Control:
 ```dart
 
@@ -74,3 +75,4 @@ void dispose() {
   _stateMachine.dispose();
   super.dispose();
 }
+```
