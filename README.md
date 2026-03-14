@@ -1,10 +1,10 @@
- # LottieStateMachine
+# LottieStateMachine
 
 A frame-accurate state machine for managing Lottie animations in Flutter using Enums.
 
 ## Installation
 
-Add this to your `pubspec.yaml`:
+Add to `pubspec.yaml`:
 
 ```yaml
 dependencies:
@@ -13,62 +13,75 @@ dependencies:
       url: https://github.com/Dzmi3y/LottieStateMachine.git
       ref: main
 ```
-Run Command:
-Open the terminal in your project folder and run:
-flutter pub get
-Quick Start
-1. Define States
+
+Usage
+
+1. Define states
 
 ```dart
-
-enum CharacterState { idle, jump }
+enum CatState { idle, walk, jump }
 ```
-2. Configure Data
+
+2. Configure animation
+
 ```dart
 
-final animationData = LottieAnimationData<CharacterState>(
-  src: 'assets/robot.json',
+final catAnimation = LottieAnimationData<CatState>(
+  src: 'assets/cat.json',
   states: {
-    CharacterState.idle: LottieAnimationState(
-      id: CharacterState.idle,
+    CatState.idle: LottieAnimationState(
+      id: CatState.idle,
       startFrame: 0,
-      endFrame: 30,
+      endFrame: 29,
       isLoop: true,
     ),
-    CharacterState.jump: LottieAnimationState(
-      id: CharacterState.jump,
-      startFrame: 31,
-      endFrame: 60,
-      nextStateId: CharacterState.idle,
+    CatState.walk: LottieAnimationState(
+      id: CatState.walk,
+      startFrame: 30,
+      endFrame: 59,
+      nextStateId: CatState.idle,
     ),
   },
 );
 ```
-3. Implementation
-Import in Code:
-import 'package:lottie_state_machine/lottie_state_machine.dart';
-Initialize:
+
+3. Use widget
+
 ```dart
 
-late final _stateMachine = LottieAnimationStateMachine<CharacterState>(
-  animation: animationData,
-  currentStateId: CharacterState.idle,
-  controller: AnimationController(vsync: this),
-);
+LottieStateMachineWidget<CatState>(
+  data: catAnimation,
+  currentStateId: _currentState,
+  onAnimationFinished: (state) {
+    print('$state completed');
+  },
+)
 ```
-Build & Control:
+
+4. Change state
+
 ```dart
 
-// Inside build method
-_stateMachine.buildLottie(width: 200);
-
-// Trigger change
-_stateMachine.changeState(CharacterState.jump);
-
-// Clean up
-@override
-void dispose() {
-  _stateMachine.dispose();
-  super.dispose();
-}
+setState(() => _currentState = CatState.walk);
 ```
+
+API
+LottieAnimationState<T>
+
+    id - State identifier
+
+    startFrame/endFrame - Frame range
+
+    nextStateId - Next state (optional)
+
+    isLoop - Loop animation (default: false)
+
+    speed - Playback speed (default: 1.0)
+
+Requirements
+
+    Flutter >= 3.0.0
+
+    Dart >= 3.0.0
+
+    lottie: ^3.1.0
