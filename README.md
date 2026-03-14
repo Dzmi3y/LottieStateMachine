@@ -16,8 +16,14 @@ dependencies:
 
 Usage
 
-1. Define states
+Run Command:
+Open the terminal in your project folder and run:
+```bash
+flutter pub get
+```
 
+Quick Start
+1. Define states
 ```dart
 enum CatState { idle, walk, jump }
 ```
